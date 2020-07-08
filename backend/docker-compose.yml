@@ -1,0 +1,37 @@
+version: "3.7"
+networks:
+  test:
+volumes:
+  notused:
+  sqldata:
+services:
+  app:
+    env_file: 
+      - .env
+    restart: on-failure
+    depends_on:
+      - pgdb
+    build:
+      context: .
+      target: build
+    command: npm run watch
+    networks:
+      - test
+    volumes:
+      - .:/usr/src/app:delegated
+      - ./package.json:/usr/src/package.json
+      - ./package-lock.json:/usr/src/package-lock.json
+      - notused:/usr/src/app/node_modules
+    ports:
+      - ${HOST_PORT:-3000}:${PORT:-3000}
+  pgdb:
+    restart: always
+    image: postgres:11.7
+    env_file:
+      - .env
+    networks:
+      - test
+    volumes:
+      - sqldata:/var/lib/postgresql/data
+    ports:
+      - ${HOST_DB_PORT:-5432}:${KNEX_PORT:-5432}

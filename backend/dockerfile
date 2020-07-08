@@ -1,0 +1,35 @@
+FROM node:10-alpine AS build
+WORKDIR /usr/src
+COPY package.json package-lock.json* ./
+RUN npm install --no-optional && npm cache clean --force
+ENV PATH /usr/src/node_modules/.bin:$PATH
+WORKDIR /usr/src/app
+COPY . .
+RUN nps build.prod
+
+
+FROM node:10-alpine as release
+LABEL version="0.0.1"
+LABEL description="Back-end"
+ARG NODE_ENV=production
+ENV NODE_ENV $NODE_ENV
+ARG HOST_PORT=3000
+ENV HOST_PORT $PORT
+ARG KNEX_CONNECTION=pg
+ENV KNEX_CONNECTION $KNEX_CONNECTION
+ARG KNEX_HOST=pgdb
+ENV KNEX_HOST $KNEX_HOST
+ARG KNEX_PORT=5432
+ENV KNEX_PORT $KNEX_PORT
+ARG KNEX_USERNAME=postgres
+ENV KNEX_USERNAME $KNEX_USERNAME
+ARG KNEX_PASSWORD=password
+ENV KNEX_PASSWORD $KNEX_PASSWORD
+ARG KNEX_DATABASE=boon
+ENV KNEX_DATABASE $KNEX_DATABASE
+WORKDIR /usr/src/app
+COPY package.json package-lock.json* ./
+RUN npm install --only=production --no-optional && npm cache clean --force
+COPY --from=build /usr/src/app/dist .
+EXPOSE $PORT
+CMD ["node", "server.js"]
