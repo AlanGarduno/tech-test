@@ -1,0 +1,62 @@
+<div class="container">
+
+  <div class="title--position">
+    <h1>Pokedex</h1>
+  </div>
+
+  <div class="input--position">
+    <form>
+      <label for="NickName">Nickname</label>
+      <input type="text" id="NickName" name="NickName" maxlength="200" [(ngModel)]="nickName">
+      <button class="button-send" (click)="onSend()">Enviar</button>
+    </form>
+  </div>
+
+
+  <div class="table--position">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+      
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Imagen </th>
+        <td mat-cell *matCellDef="let element"> <img src="{{element.sprites.front_default}}"></td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef> Seleccionar </th>
+        <td mat-cell *matCellDef="let element">
+           <input type="checkbox"
+                  [(ngModel)]="element.selected"
+                  [ngClass]="{'selection--disabled': !element.selected && this.pokemonToSave.length === 6}"
+                  (change)="onSelect(element,$event.target.checked)">
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="more">
+        <th mat-header-cell *matHeaderCellDef> Saber más </th>
+        <td mat-cell *matCellDef="let element">
+          <button class="button-more" (click)="onMore(element)"> ¡Más!</button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  
+</div>

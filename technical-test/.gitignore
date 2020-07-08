@@ -1,0 +1,90 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@AlanGarduno 
+angular
+/
+angular
+3.2k
+63k17.1k
+Code
+Issues
+2,689
+Pull requests
+612
+Actions
+Projects
+5
+Security
+Insights
+angular/.gitignore
+@devversion
+devversion ci: do not run benchmark measurements in circleci (#34753)
+…
+Latest commit 4d88b4b on 13 Jan
+ History
+ 23 contributors
+@alexeagle@mhevery@gkalpak@IgorMinar@tbosch@vsavkin@petebacondarwin@ocombe@vicb@scheglov@robwormald@rkirov
+44 lines (36 sloc)  655 Bytes
+  
+.DS_STORE
+
+/dist/
+/bazel-out
+/integration/bazel/bazel-*
+*.log
+node_modules
+
+# Include when developing application packages.
+pubspec.lock
+.c9
+.idea/
+.devcontainer/*
+!.devcontainer/README.md
+!.devcontainer/recommended-devcontainer.json
+!.devcontainer/recommended-Dockerfile
+.settings/
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+*.swo
+modules/.settings
+modules/.vscode
+.vimrc
+.nvimrc
+
+# Don't check in secret files
+*secret.js
+
+# Ignore npm/yarn debug log
+npm-debug.log
+yarn-error.log
+
+# build-analytics
+.build-analytics
+
+# rollup-test output
+/modules/rollup-test/dist/
+
+# User specific bazel settings
+.bazelrc.user
+
+.notes.md
+baseline.json
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
