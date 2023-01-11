@@ -33,7 +33,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "helmet": "^3.22.0",
-    "knex": "^0.20.15",
+    "knex": "^2.4.0",
     "pg": "^8.0.2",
     "reflect-metadata": "^0.1.13",
     "swagger-express-ts": "^1.0.1",
